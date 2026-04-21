@@ -1,65 +1,77 @@
-import Image from "next/image";
+import { createClient } from '@/lib/supabase/server'
+import { redirect } from 'next/navigation'
+import { CW, CWHeader, CWFooter, CWLogo } from '@/components/cw-shared'
 
-export default function Home() {
+export default async function HomePage() {
+  const supabase = await createClient()
+  const { data: { user } } = await supabase.auth.getUser()
+  if (user) redirect('/dashboard')
+
   return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the page.tsx file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
+    <div style={{ minHeight: '100vh', background: CW.bg, display: 'flex', flexDirection: 'column', fontFamily: 'Arial, sans-serif' }}>
+      <CWHeader compact={false} />
+
+      <div style={{ flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', padding: '40px 24px', textAlign: 'center' }}>
+
+        <CWLogo size={88} />
+
+        <h1 style={{ fontSize: 28, fontWeight: 900, color: CW.navyDark, marginTop: 20, marginBottom: 6, fontFamily: '"Times New Roman", Georgia, serif', letterSpacing: 0.5 }}>
+          CAT MANIAC
+        </h1>
+        <p style={{ fontSize: 14, color: CW.inkMuted, marginBottom: 32, letterSpacing: 1 }}>
+          SIMULASI TRYOUT SKD CPNS · PERSIAPAN TERBAIK UNTUK CPNS 2026
+        </p>
+
+        <div style={{ background: '#fff', border: `1px solid ${CW.border}`, borderRadius: 4, padding: '28px 32px', maxWidth: 480, width: '100%', marginBottom: 32 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginBottom: 24 }}>
+            {[
+              { val: '408', label: 'Bank Soal' },
+              { val: '100', label: 'Soal / Sesi' },
+              { val: '90', label: 'Menit' },
+            ].map(({ val, label }) => (
+              <div key={label} style={{ textAlign: 'center' }}>
+                <div style={{ fontSize: 28, fontWeight: 900, color: CW.blue }}>{val}</div>
+                <div style={{ fontSize: 11, color: CW.inkMuted, fontWeight: 700, letterSpacing: 0.5 }}>{label}</div>
+              </div>
+            ))}
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+            {[
+              { icon: '✓', text: 'Soal TWK, TIU, TKP sesuai standar BKN' },
+              { icon: '✓', text: 'Timer real-time seperti CAT sesungguhnya' },
+              { icon: '✓', text: 'Hasil & diagnostic area lemah langsung tampil' },
+              { icon: '✓', text: 'Share hasil ke TikTok / Instagram' },
+            ].map(({ icon, text }) => (
+              <div key={text} style={{ display: 'flex', gap: 10, fontSize: 13, color: CW.ink, textAlign: 'left' }}>
+                <span style={{ color: CW.green, fontWeight: 700, flexShrink: 0 }}>{icon}</span>
+                <span>{text}</span>
+              </div>
+            ))}
+          </div>
         </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
+
+        <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap', justifyContent: 'center' }}>
           <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/auth/login"
+            style={{ background: CW.blue, color: '#fff', padding: '12px 32px', borderRadius: 3, fontSize: 14, fontWeight: 700, textDecoration: 'none', letterSpacing: 0.5 }}
           >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
+            MULAI GRATIS →
           </a>
           <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
+            href="/auth/login"
+            style={{ background: '#fff', color: CW.ink, padding: '12px 24px', borderRadius: 3, fontSize: 13, fontWeight: 500, textDecoration: 'none', border: `1px solid ${CW.borderDark}` }}
           >
-            Documentation
+            Sudah punya akun? Login
           </a>
         </div>
-      </main>
+
+        <p style={{ marginTop: 20, fontSize: 11.5, color: CW.inkMuted }}>
+          Gratis 3 sesi tryout untuk akun baru · Tanpa kartu kredit
+        </p>
+      </div>
+
+      <CWFooter />
     </div>
-  );
+  )
 }
