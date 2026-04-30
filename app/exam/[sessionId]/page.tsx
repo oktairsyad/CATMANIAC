@@ -131,9 +131,19 @@ export default function ExamPage() {
   const isUrgent = remaining < 300
 
   const optionKeys: AnswerOption[] = ['a', 'b', 'c', 'd', 'e']
+
+  function cleanOption(text: string | null | undefined, soal: string): string | null {
+    if (!text || !text.trim()) return null
+    if (text.trim() === soal.trim()) return null  // duplicate of question text
+    return text.trim()
+  }
+
   const optionMap: Record<AnswerOption, string | null> = {
-    a: q?.opsi_a ?? null, b: q?.opsi_b ?? null,
-    c: q?.opsi_c ?? null, d: q?.opsi_d ?? null, e: q?.opsi_e ?? null,
+    a: cleanOption(q?.opsi_a, q?.soal_text ?? ''),
+    b: cleanOption(q?.opsi_b, q?.soal_text ?? ''),
+    c: cleanOption(q?.opsi_c, q?.soal_text ?? ''),
+    d: cleanOption(q?.opsi_d, q?.soal_text ?? ''),
+    e: cleanOption(q?.opsi_e, q?.soal_text ?? ''),
   }
 
   return (

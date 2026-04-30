@@ -1,6 +1,7 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
 import { CW, CWHeader, CWFooter, CWPanel, CWInfoRow } from '@/components/cw-shared'
+import { LogoutButton } from '@/components/logout-button'
 
 const PASSING = { TWK: 65, TIU: 80, TKP: 143, TOTAL: 311 }
 const MAX = { TWK: 150, TIU: 175, TKP: 175, TOTAL: 500 }
@@ -55,7 +56,7 @@ export default async function ResultPage({ params }: { params: Promise<{ session
   if (!result) {
     return (
       <div style={{ minHeight: '100vh', background: CW.bg, display: 'flex', flexDirection: 'column', fontFamily: 'Arial, sans-serif' }}>
-        <CWHeader compact />
+        <CWHeader compact right={<LogoutButton />} />
         <div style={{ flex: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <div style={{ textAlign: 'center' }}>
             <div style={{ width: 32, height: 32, border: `3px solid ${CW.blue}`, borderTopColor: 'transparent', borderRadius: '50%', animation: 'spin 0.8s linear infinite', margin: '0 auto 12px' }} />
@@ -76,7 +77,7 @@ export default async function ResultPage({ params }: { params: Promise<{ session
 
   return (
     <div style={{ minHeight: '100vh', background: CW.bg, display: 'flex', flexDirection: 'column', fontFamily: 'Arial, sans-serif' }}>
-      <CWHeader compact />
+      <CWHeader compact right={<LogoutButton />} />
 
       <div style={{ flex: 1, padding: '22px 32px', overflowY: 'auto', maxWidth: 860, margin: '0 auto', width: '100%' }}>
 

@@ -1,5 +1,6 @@
 import { createClient } from '@/lib/supabase/server'
 import { redirect } from 'next/navigation'
+import { LogoutButton } from '@/components/logout-button'
 
 export default async function DashboardPage({
   searchParams,
@@ -46,12 +47,15 @@ export default async function DashboardPage({
             </h1>
             <p className="text-gray-500 mt-1 text-sm">Siap latihan hari ini?</p>
           </div>
-          <a
-            href="/buy"
-            className="text-sm bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-xl hover:bg-gray-50 transition"
-          >
-            + Beli Kredit
-          </a>
+          <div className="flex items-center gap-2">
+            <a
+              href="/buy"
+              className="text-sm bg-white border border-gray-300 text-gray-700 px-4 py-2 rounded-xl hover:bg-gray-50 transition"
+            >
+              + Beli Kredit
+            </a>
+            <LogoutButton variant="light" />
+          </div>
         </div>
 
         {/* Stats */}

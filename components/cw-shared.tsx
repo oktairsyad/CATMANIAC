@@ -60,20 +60,27 @@ export function CWLogo({ size = 44 }: { size?: number }) {
   )
 }
 
-export function CWHeader({ compact = true }: { compact?: boolean }) {
+export function CWHeader({ compact = true, right }: { compact?: boolean; right?: React.ReactNode }) {
   return (
     <div style={{ position: 'relative', height: compact ? 88 : 120, overflow: 'hidden', background: '#e9e7f4', flexShrink: 0 }}>
       <CWBannerPattern />
       <div style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: 14, padding: compact ? '16px 28px' : '24px 32px', height: '100%' }}>
-        <CWLogo size={compact ? 40 : 50} />
-        <div style={{ lineHeight: 1.15 }}>
-          <div style={{ fontSize: compact ? 18 : 22, fontWeight: 800, color: CW.navyDark, letterSpacing: 0.5, fontFamily: '"Times New Roman", Georgia, serif' }}>
-            SIMULASI COMPUTER ASSISTED TEST
+        <a href="/" style={{ display: 'flex', alignItems: 'center', gap: 14, textDecoration: 'none', flexShrink: 0 }}>
+          <CWLogo size={compact ? 40 : 50} />
+          <div style={{ lineHeight: 1.15 }}>
+            <div style={{ fontSize: compact ? 18 : 22, fontWeight: 800, color: CW.navyDark, letterSpacing: 0.5, fontFamily: '"Times New Roman", Georgia, serif' }}>
+              SIMULASI COMPUTER ASSISTED TEST
+            </div>
+            <div style={{ fontSize: compact ? 11 : 13, fontWeight: 700, color: CW.navy, letterSpacing: 1.5, marginTop: 2, fontFamily: '"Times New Roman", Georgia, serif' }}>
+              CAT MANIAC · LATIHAN CPNS
+            </div>
           </div>
-          <div style={{ fontSize: compact ? 11 : 13, fontWeight: 700, color: CW.navy, letterSpacing: 1.5, marginTop: 2, fontFamily: '"Times New Roman", Georgia, serif' }}>
-            CAT MANIAC · LATIHAN CPNS
+        </a>
+        {right && (
+          <div style={{ marginLeft: 'auto' }}>
+            {right}
           </div>
-        </div>
+        )}
       </div>
     </div>
   )

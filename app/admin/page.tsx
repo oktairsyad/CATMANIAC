@@ -2,6 +2,7 @@ import { createClient } from '@/lib/supabase/server'
 import { createAdminClient } from '@/lib/supabase/admin'
 import { redirect } from 'next/navigation'
 import { CW, CWHeader, CWFooter, CWPanel } from '@/components/cw-shared'
+import { LogoutButton } from '@/components/logout-button'
 
 export default async function AdminPage() {
   // 1. Get current user
@@ -40,7 +41,7 @@ export default async function AdminPage() {
 
   return (
     <div style={{ minHeight: '100vh', background: CW.bg, display: 'flex', flexDirection: 'column', fontFamily: 'Arial, sans-serif' }}>
-      <CWHeader compact />
+      <CWHeader compact right={<LogoutButton />} />
 
       <div style={{ flex: 1, padding: '22px 32px', maxWidth: 1000, margin: '0 auto', width: '100%' }}>
 
