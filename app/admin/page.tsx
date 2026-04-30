@@ -3,6 +3,7 @@ import { createAdminClient } from '@/lib/supabase/admin'
 import { redirect } from 'next/navigation'
 import { CW, CWHeader, CWFooter, CWPanel } from '@/components/cw-shared'
 import { LogoutButton } from '@/components/logout-button'
+import { AddCreditForm } from '@/components/add-credit-form'
 
 export default async function AdminPage() {
   // 1. Get current user
@@ -23,7 +24,7 @@ export default async function AdminPage() {
   const admin = createAdminClient()
   const { data: users } = await admin
     .from('profiles')
-    .select('id, email, full_name, credits, role, created_at')
+    .select('id, email, username, full_name, credits, role, created_at')
     .order('created_at', { ascending: false })
 
   const { data: sessionCounts } = await admin
@@ -67,13 +68,15 @@ export default async function AdminPage() {
           ))}
         </div>
 
+        <AddCreditForm />
+
         {/* User table */}
         <CWPanel title={`Daftar Pengguna (${totalUsers})`}>
           <div style={{ overflowX: 'auto' }}>
             <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 12.5 }}>
               <thead>
                 <tr style={{ background: CW.bg }}>
-                  {['Email', 'Nama', 'Role', 'Kredit', 'Sesi', 'Daftar'].map(h => (
+                  {['Email', 'Username', 'Nama', 'Role', 'Kredit', 'Sesi', 'Daftar'].map(h => (
                     <th key={h} style={{ padding: '8px 12px', textAlign: 'left', fontWeight: 700, color: CW.inkMuted, borderBottom: `1px solid ${CW.border}`, whiteSpace: 'nowrap' }}>
                       {h}
                     </th>
@@ -84,6 +87,7 @@ export default async function AdminPage() {
                 {(users ?? []).map((u, i) => (
                   <tr key={u.id} style={{ background: i % 2 === 0 ? '#fff' : CW.bg }}>
                     <td style={{ padding: '8px 12px', color: CW.ink, borderBottom: `1px solid ${CW.border}` }}>{u.email}</td>
+                    <td style={{ padding: '8px 12px', color: CW.inkMuted, borderBottom: `1px solid ${CW.border}` }}>{u.username || '—'}</td>
                     <td style={{ padding: '8px 12px', color: CW.ink, borderBottom: `1px solid ${CW.border}` }}>{u.full_name || '—'}</td>
                     <td style={{ padding: '8px 12px', borderBottom: `1px solid ${CW.border}` }}>
                       <span style={{
