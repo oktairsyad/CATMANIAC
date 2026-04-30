@@ -23,9 +23,8 @@ export default async function HomePage() {
         </p>
 
         <div style={{ background: '#fff', border: `1px solid ${CW.border}`, borderRadius: 4, padding: '28px 32px', maxWidth: 480, width: '100%', marginBottom: 32 }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 16, marginBottom: 24 }}>
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 24 }}>
             {[
-              { val: '408', label: 'Bank Soal' },
               { val: '100', label: 'Soal / Sesi' },
               { val: '90', label: 'Menit' },
             ].map(({ val, label }) => (
